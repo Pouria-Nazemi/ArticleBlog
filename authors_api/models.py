@@ -16,6 +16,9 @@ class Article(models.Model):
     subject = models.CharField(max_length = 50, blank = False, null = False)
     author_id = models.ForeignKey(User, on_delete = models.CASCADE)
 
+    def __str__(self):
+        return self.title
+    
 
 
     
