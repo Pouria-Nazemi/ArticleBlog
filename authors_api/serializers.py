@@ -12,6 +12,16 @@ class AuthorsSerializer(serializers.ModelSerializer):
                 'style': {'input_type': 'password'}
             }
         }
+    def create(self, validated_data):
+        user = models.User(email = validated_data['email'],
+                    username = validated_data['username'],
+                    last_name = validated_data['last_name'],
+                    blog = validated_data['blog'],
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
 
 class ArticlesSerializer(serializers.ModelSerializer):
 
