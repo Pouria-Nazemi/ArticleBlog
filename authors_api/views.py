@@ -5,6 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework import filters
 
 
 class AuthorViewset(viewsets.ModelViewSet):
@@ -27,6 +28,8 @@ class ArticleViewset(viewsets.ModelViewSet):
         permissions.UpdateOwnArticle,
         IsAuthenticatedOrReadOnly
     )
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('title', 'subject', 'description',)
 
     def perform_create(self, serializer):
         serializer.save(author_id=self.request.user)
